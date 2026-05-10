@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SpaceBuilder - Multiplayer Ruimteschip Bouw Game</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🚀</text></svg>">
+</head>
+<body>
+  <!-- Landing Page -->
+  <div id="landingPage">
+    <header>
+      <nav>
+        <div class="logo">🚀 SpaceBuilder</div>
+        <div class="nav-links">
+          <a href="#over">Over</a>
+          <a href="#handleiding">Handleiding</a>
+          <a href="#scores">Scores</a>
+        </div>
+      </nav>
+    </header>
+
+    <section class="hero">
+      <div class="hero-content">
+        <h1>Build the Ultimate Spaceship</h1>
+        <p class="tagline">Endless multiplayer space ship building competition</p>
+        <button class="cta-btn" onclick="showGame()">🎮 Start Game</button>
+        <div class="stats">
+          <div class="stat">
+            <span class="number">8</span>
+            <span class="label">Teams</span>
+          </div>
+          <div class="stat">
+            <span class="number">∞</span>
+            <span class="label">Endless</span>
+          </div>
+          <div class="stat">
+            <span class="number">24/7</span>
+            <span class="label">Online</span>
+          </div>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="ship-preview">
+          <svg viewBox="0 0 200 200" class="spaceship">
+            <defs>
+              <linearGradient id="shipGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" style="stop-color:#00d4ff"/>
+                <stop offset="100%" style="stop-color:#0099cc"/>
+              </linearGradient>
+            </defs>
+            <polygon points="100,20 140,80 120,80 120,160 80,160 80,80 60,80" fill="url(#shipGrad)"/>
+            <circle cx="100" cy="60" r="15" fill="#ffcc00"/>
+            <rect x="65" y="100" width="20" height="30" fill="#ff6b6b" rx="3"/>
+            <rect x="115" y="100" width="20" height="30" fill="#4ade80" rx="3"/>
+          </svg>
+        </div>
+      </div>
+    </section>
+
+    <section id="over" class="about">
+      <h2>Wat is SpaceBuilder?</h2>
+      <div class="features">
+        <div class="feature">
+          <div class="icon">🏗️</div>
+          <h3>Bouw Samen</h3>
+          <p>Werk samen met je team om het grootste ruimteschip te bouwen</p>
+        </div>
+        <div class="feature">
+          <div class="icon">🚀</div>
+          <h3>Verzamel Onderdelen</h3>
+          <p>Vlieg de ruimte in en verzamel onderdelen om je schip uit te breiden</p>
+        </div>
+        <div class="feature">
+          <div class="icon">🏆</div>
+          <h3>Competeer</h3>
+          <p>Concurrentieer met andere teams om de hoogste score</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="handleiding" class="guide">
+      <h2>📖 Handleiding</h2>
+      <div class="steps">
+        <div class="step">
+          <span class="step-num">1</span>
+          <div class="step-content">
+            <h3>Kies een Team</h3>
+            <p>Selecteer je kleur en naam bij het starten</p>
+          </div>
+        </div>
+        <div class="step">
+          <span class="step-num">2</span>
+          <div class="step-content">
+            <h3>Launch je Mini Schip</h3>
+            <p>Klik "Launch" om de ruimte in te vliegen</p>
+          </div>
+        </div>
+        <div class="step">
+          <span class="step-num">3</span>
+          <div class="step-content">
+            <h3>Verzamel Onderdelen</h3>
+            <p>Vlieg naar de gele bolletjes om onderdelen te pakken</p>
+          </div>
+        </div>
+        <div class="step">
+          <span class="step-num">4</span>
+          <div class="step-content">
+            <h3>Return en Bouw</h3>
+            <p>Ga terug naar je dok en bouw de onderdelen op je schip</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="controls">
+        <h3>🎮 Besturing</h3>
+        <div class="keys">
+          <div class="key-group">
+            <span class="key">W</span>
+            <span>vooruit</span>
+          </div>
+          <div class="key-group">
+            <span class="key">A</span>
+            <span>links draaien</span>
+          </div>
+          <div class="key-group">
+            <span class="key">D</span>
+            <span>rechts draaien</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="scores" class="leaderboard">
+      <h2>🏆 Live Scores</h2>
+      <div id="liveScores">
+        <ul id="scoresList"></ul>
+      </div>
+    </section>
+
+    <footer>
+      <p>SpaceBuilder &copy; 2026 - Endless Multiplayer Space Ship Building</p>
+      <p class="tech">Built with Node.js + Socket.io</p>
+    </footer>
+  </div>
+
+  <!-- Game Modal -->
+  <div id="gameModal" class="hidden">
+    <div class="game-header">
+      <button class="back-btn" onclick="hideGame()">← Terug</button>
+      <span class="game-title">🚀 SpaceBuilder</span>
+    </div>
+    
+    <div id="loginScreen">
+      <div class="login-box">
+        <h2>Join het spel</h2>
+        <input type="text" id="playerName" placeholder="Je naam" maxlength="20">
+        <select id="teamSelect">
+          <option value="">Kies een team...</option>
+        </select>
+        <button id="joinBtn">Starten</button>
+      </div>
+    </div>
+
+    <div id="gameScreen" class="hidden">
+      <div id="scoreboard">
+        <h3>🏆 TOP 5</h3>
+        <ul id="scoreList"></ul>
+      </div>
+
+      <div id="hud">
+        <div id="teamInfo">
+          <span id="teamName"></span>
+          <span id="scoreDisplay">Score: 0</span>
+        </div>
+        <div id="inventory">
+          <h4>📦 Inventory</h4>
+          <ul id="inventoryList"></ul>
+        </div>
+        <div id="shipInfo">
+          <span id="shipState">Gedokt</span>
+          <button id="launchBtn" disabled>🚀 Launch</button>
+          <button id="dockBtn" class="hidden">⚓ Dock</button>
+        </div>
+      </div>
+
+      <div id="buildMenu" class="hidden">
+        <h4>🔧 Bouw Menu</h4>
+        <div id="buildParts"></div>
+      </div>
+
+      <canvas id="gameCanvas"></canvas>
+    </div>
+  </div>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="game.js"></script>
+  <script>
+    function showGame() {
+      document.getElementById('landingPage').classList.add('hidden');
+      document.getElementById('gameModal').classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function hideGame() {
+      document.getElementById('landingPage').classList.remove('hidden');
+      document.getElementById('gameModal').classList.add('hidden');
+      document.body.style.overflow = 'auto';
+    }
+  </script>
+</body>
+</html>
