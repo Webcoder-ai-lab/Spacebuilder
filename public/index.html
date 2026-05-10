@@ -204,6 +204,11 @@
   </div>
 
   <script src="/socket.io/socket.io.js"></script>
+  <script>
+    if (typeof io === 'undefined') {
+      document.write('<sc' + 'ript src="https://cdn.socket.io/4.7.2/socket.io.min.js"><\/sc' + 'ript>');
+    }
+  </script>
   <script src="game.js"></script>
   <script>
     function showGame() {

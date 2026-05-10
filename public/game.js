@@ -47,6 +47,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const name = document.getElementById('playerName').value.trim() || 'Player';
     const teamId = document.getElementById('teamSelect').value;
     if (!teamId) { alert('Kies een team!'); return; }
+    if (!socket.connected) {
+      document.getElementById('connStatus').textContent = '⚠ Server offline - start de server met "npm start"';
+      return;
+    }
     socket.emit('joinTeam', { teamId: parseInt(teamId), playerName: name });
   });
 
