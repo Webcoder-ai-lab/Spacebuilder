@@ -84,9 +84,20 @@ function loadLiveScores() {
   });
 }
 
+const connStatus = document.getElementById('connStatus');
+
 socket.on('connect', () => {
+  if (connStatus) connStatus.textContent = '';
   socket.emit('getTeams');
   socket.emit('getScoreboard');
+});
+
+socket.on('disconnect', () => {
+  if (connStatus) connStatus.textContent = '⚠ Server offline - start de server met npm start';
+});
+
+socket.on('connect_error', () => {
+  if (connStatus) connStatus.textContent = '⚠ Server offline - start de server met npm start';
 });
 
 socket.on('teamsList', (teams) => {
